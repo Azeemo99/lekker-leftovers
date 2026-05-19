@@ -1,0 +1,21 @@
+extends layout
+
+
+
+block content
+  h1 All Product Listings
+
+  if formattedProducts.length
+    ul.product-list
+      each product in formattedProducts
+        li.product-item
+          h2 
+            a(href=`/product/${product.product_id}`) #{product.name}
+          p Supplier: #{product.supplier_fname} #{product.supplier_lname}
+          p Price: £#{product.price}
+          p Description: #{product.description}
+          p Pickup Time: #{product.pickupTime}
+          p Quantity Available: #{product.product_quantity} 
+          hr
+  else
+    p No products found.

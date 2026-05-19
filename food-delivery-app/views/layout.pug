@@ -1,0 +1,57 @@
+doctype html
+html
+  head
+    title Lekker Leftovers
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    link(rel="stylesheet", href="/css/style.css")
+    link(rel="stylesheet", href="/leaflet/leaflet.css")
+    block styles  //- Add this line to allow child templates to add styles
+  body
+    header.app-header
+      .logo
+        h1 Lekker Leftovers
+      nav.main-nav
+        ul.nav-list
+          li.nav-item
+            if user
+              if user.account_type == 'customer'
+                a(href="/customer_dashboard") Dashboard
+              else if user.account_type == 'supplier'
+                a(href="/supplier_dashboard") Dashboard
+              else
+                a(href="/index") Home
+            else
+              a(href="/index") Home
+          if user
+            if user.account_type === 'supplier'
+              li.nav-item
+                a(href="/supplier_account") My Account
+              li.nav-item
+                a(href="/supplier_listings") My Listings
+              li.nav-item
+                a(href="/addlisting") Add Listing
+            if user.account_type === 'customer'
+              li.nav-item
+                a(href="/account") My Account
+              li.nav-item
+                a(href="/listings") View Products 
+              li.nav-item
+                a(href="/recycling") Recycling                   
+            li.nav-item
+              a(href="/logout") Logout
+          else
+            li.nav-item
+              a(href="/login") Login
+            li.nav-item
+              a(href="/register") Register
+
+    main.content
+      block content
+
+    footer.app-footer
+      p &copy; #{new Date().getFullYear()} Lekker leftovers
+
+    script(src="/main.js")
+    script(src="/leaflet/leaflet.js")
+    block scripts  //- Add this line to allow child templates to add scripts

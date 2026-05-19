@@ -1,0 +1,37 @@
+extends layout
+
+block content
+  h1 LOK Dashboard: Generate Recycling Code
+
+  if error
+    .alert.alert-danger= error
+
+  form(method='POST', action='/lok/generate')
+    .form-group
+      label(for='material') Material
+      select#material.form-control(name='material' required)
+        option(value='') — Select material —
+        option(value='plastic') Plastic
+        option(value='paper')   Paper
+        option(value='metal')   Metal
+        option(value='glass')   Glass
+        option(value='organic') Organic
+
+    .form-group
+      label(for='weight') Weight (kg)
+      input#weight.form-control(
+        type='number'
+        name='weight'
+        step='0.01'
+        placeholder='e.g. 1.75'
+        required
+      )
+
+    button.btn.btn-primary(type='submit') Generate Code
+
+  if code
+    hr
+    h2 Your New Code
+    p.code(style='font-size:1.5em; font-weight:bold')= code
+    small.text-muted
+      Give this code to the customer—they’ll redeem it for the calculated points.

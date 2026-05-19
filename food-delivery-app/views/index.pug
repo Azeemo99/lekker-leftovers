@@ -1,0 +1,38 @@
+extends layout
+
+block scripts
+  script(src="/scripts/slideshow.js")
+
+block content
+  h1 Welcome to Lekker Leftovers
+
+
+
+  p.lead
+    | A digital platform designed to connect local food suppliers with customers while promoting sustainability and reducing food waste in Makers Valley, Johannesburg.
+
+  h2 What is Lekker Leftovers?
+  p
+    | Lekker Leftovers helps suppliers list excess or unsold food that can still be consumed safely. 
+    | Customers can browse and reserve available items — helping the environment and their budget.
+  
+  #slideshow-wrapper
+    #slideshow-container
+      .slide
+        img.slideshow-image(src="images/index_image1.jpg" alt="Delicious food 1")
+      .slide
+        img.slideshow-image(src="images/index_image2.jpg" alt="Delicious food 2")
+      .slide
+        img.slideshow-image(src="images/index_image3.jpg" alt="Delicious food 3")
+    .dots
+    span.dot(data-index="0")
+    span.dot(data-index="1")
+    span.dot(data-index="2")
+
+  h2 About the Project
+  p
+    | This project is part of the 
+    strong Engineers Without Borders Digital Design Challenge
+    | , aimed at solving real problems within the Makers Valley community through sustainable and inclusive software design.
+
+

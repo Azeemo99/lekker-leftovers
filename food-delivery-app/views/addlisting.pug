@@ -1,0 +1,29 @@
+extends layout 
+
+block content
+    .add-listing-container
+     h2.add-listing-title Add Listing 
+     form.add-listing-form(action="/addlisting", method="POST")
+        if error 
+            .error-message=error
+        .form-group
+            label(for="name") Name 
+            input(type="text", id="name", name="name", required)
+        .form-group
+            label(for="desc") Description 
+            input(type="text", id="desc", name="desc", required)
+        .form-group 
+            label(for="price") Price 
+            input(type="number", id="price", name="price", min = 0, required)
+        .form-group 
+            label(for="quantity") Quantity 
+            input(type="number", id="quantity", name="quantity",min = 1, max = 50, step = 1, inputmode="numeric", pattern="^[0-9]+$", required)
+        .form-group 
+            label(for="pickUp") Pick up by 
+            input(type="datetime-local", id="pickUp", name="pickUp", min=pickupMin, max=pickupMax, required)
+        
+        input(type="hidden", id="latitude", name="latitude")
+        input(type="hidden", id="longitude", name="longitude")            
+        button.button(type="submit") Save
+
+    script(src="/scripts/addListing.js") 

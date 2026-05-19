@@ -1,0 +1,8 @@
+extends layout
+
+block content
+  .pickup-code
+    h1= title
+    p Your order pickup code is:
+    h2(style="font-size: 2em; color: #2b7a78;") #{code}
+    a(href="/listings") Back to Listings

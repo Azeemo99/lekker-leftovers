@@ -1,0 +1,21 @@
+extends layout
+
+block content
+  .supplier-dashboard
+    h1 Welcome, #{user.fname} #{user.lname}!
+
+    .listing-container 
+      h2.listings-title Listings
+      ul.listings 
+        if listings.length
+          each listing in listings
+            li.listing
+              h3.listing-name= listing.product_name
+              p= listing.description
+              p Price: #{listing.total_price}
+              p Quantity #{listing.order_quantity}
+              p Pick-up Time: #{listing.pickupTime}
+              a(href=`/supplier_order/${listing.order_id}`) View order
+              hr
+        else
+          p You don't have any current orders.

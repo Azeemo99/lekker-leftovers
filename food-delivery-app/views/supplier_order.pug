@@ -1,0 +1,24 @@
+extends layout
+
+block content
+  h1 Order Details
+
+  p Product: #{order.product_name}
+  p Description: #{order.description}
+  p Quantity: #{order.order_quantity}
+  p Total Price: £#{order.total_price}
+  p Pickup Time: #{order.pickupTime}
+  p Customer: #{order.customer_fname} #{order.customer_lname}
+  
+  //- This is just for the supplier to know the correct code to expect
+  p Expected Pickup Code (for customer): 
+    strong #{short_code}
+
+  hr
+
+  h2 Verify Pickup
+  form(action="/supplier_order/verify_code" method="POST")
+    label(for="short_code") Enter Pickup Code:
+    input(type="text" name="short_code" required)
+    button(type="submit") Confirm Pickup
+

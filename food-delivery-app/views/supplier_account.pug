@@ -1,0 +1,115 @@
+extends layout
+
+block content
+  .account-container
+    h1 Supplier Account
+    
+    if messages
+      if messages.error
+        .alert.alert-danger= messages.error
+      if messages.success
+        .alert.alert-success= messages.success
+
+    .account-sections
+      //- Profile Section
+      .profile-section
+        h2 Profile Information
+        form(method='POST' action='/supplier_account/update')
+          .form-group
+            label(for='username') Username
+            input.form-control(
+              type='text' 
+              id='username' 
+              name='username' 
+              value=supplier.username
+              required
+            )
+          
+          .form-group
+            label(for='fname') First Name
+            input.form-control(
+              type='text' 
+              id='fname' 
+              value=supplier.fname
+              readonly
+            )
+          
+          .form-group
+            label(for='lname') Last Name
+            input.form-control(
+              type='text' 
+              id='lname' 
+              value=supplier.lname
+              readonly
+            )
+          
+          .form-group
+            label(for='phone') Phone Number
+            input.form-control(
+              type='text' 
+              id='phone' 
+              value=supplier.phone_number
+              readonly
+            )
+          
+          .form-group
+            label(for='email') Email
+            input.form-control(
+              type='email'
+              id='email'
+              value=supplier.email || 'Not provided'
+              readonly
+            )
+          
+          //- Password Change Section
+          h3 Change Password
+          .form-group
+            label(for='currentPassword') Current Password
+            input.form-control(
+              type='password' 
+              id='currentPassword' 
+              name='currentPassword'
+              placeholder='Required for password changes'
+            )
+          
+          .form-group
+            label(for='newPassword') New Password
+            input.form-control(
+              type='password' 
+              id='newPassword' 
+              name='newPassword'
+              placeholder='At least 6 characters'
+            )
+          
+          button.btn.btn-primary(type='submit') Update Account
+
+      //- Order History Section
+      .order-history
+        h2 Order History
+        if orders && orders.length > 0
+          .table-responsive
+            table.table
+              thead
+                tr
+                  th Date
+                  th Order ID
+                  th Product
+                  th Customer
+                  th Qty
+                  th Unit Price
+                  th Total
+                  th Status
+              tbody
+                each order in orders
+                  tr
+                    td= helpers.formatDate(order.order_date)
+                    td= order.order_id
+                    td= order.product_name
+                    td= order.customer_username
+                    td= order.order_quantity
+                    td= helpers.formatCurrency(order.price)
+                    td= helpers.formatCurrency(order.total_price)
+                    td
+                      span.status(class=order.status.toLowerCase())= order.status
+        else
+          p.no-orders No orders for your products yet.

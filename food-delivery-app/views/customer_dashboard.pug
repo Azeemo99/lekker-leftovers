@@ -1,0 +1,28 @@
+extends layout
+
+block content
+  .customer-dashboard
+    h1 Welcome, #{user.fname} #{user.lname}!
+    .map-container
+      h2 Your location
+      #map 
+    .listing-container 
+      h2.listings-title Current orders
+      ul.listings 
+        if listings.length
+          each listing in listings
+            li.listing
+              h3.listing-name= listing.product_name
+              p= listing.description
+              p Price: £#{listing.total_price}
+              p Quantity: #{listing.order_quantity}
+              p Pick-up Time: #{listing.pickupTime}
+              p  
+                a(href=`/order/${listing.product_id}`) view order
+              hr
+        else
+          p You don't have any current orders.
+  
+    script.
+      window.orderListings = !{JSON.stringify(listings)};
+    script(src="/scripts/customer_dashboard_map.js") 

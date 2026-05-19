@@ -1,0 +1,30 @@
+extends layout
+
+block content
+  .login-container
+    h2 Recycling
+
+    if error
+      .alert.alert-danger= error
+    if message
+      .alert.alert-success= message
+
+    p
+      strong Username:
+      span #{username}
+
+    form(action="/recycling" method="POST")
+      .form-group
+        label(for="uniqueCode") Enter Unique Code:
+        input#uniqueCode.form-control(
+          type="text",
+          name="unique_code",
+          required
+        )
+      button.btn.btn-primary(type="submit") Redeem Code
+
+    .points-counter
+      h3 Your Points
+      p
+        strong Current Points:
+        span#points_gained #{points_gained}

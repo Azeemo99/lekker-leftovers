@@ -1,0 +1,31 @@
+extends layout
+
+block content
+  .card.form-container
+    h1.form-title= product.name
+
+    p
+      strong Description: 
+      | #{product.description}
+    p
+      strong Price: 
+      | £#{product.price}
+    p 
+      strong Quantity Available: 
+      | #{product.product_quantity}  
+    p
+      strong Pickup Time: 
+      | #{product.pickupTime}
+    p
+      strong Supplier: 
+      | #{product.supplier_fname} #{product.supplier_lname}
+
+    a.btn(href="/listings") Back to Listings
+
+    if user && user.account_type === 'customer'
+      form.form(action="/placeOrder" method="POST")
+        input(type="hidden" name="product_id" value=product.product_id)
+        .form-group
+          label(for="order_quantity") Quantity:
+          input#order_quantity(type="number" name="order_quantity" required min="1" max=product.product_quantity)
+        button.form-button.add-listing-button(type="submit") Place Order

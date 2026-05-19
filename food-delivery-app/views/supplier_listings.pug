@@ -1,0 +1,66 @@
+extends layout
+
+block content
+  h1 My Product Listings
+
+  //- Debug output (remove in production)
+  //- pre= JSON.stringify({ dailySummary, weeklySummary, products: products.slice(0,1) }, null, 2)
+
+  //- Daily Summary
+  .summary-container
+    h2 Today's Summary
+    .summary-stats
+      .stat-card
+        h3 Orders
+        p= dailySummary.total_orders
+      .stat-card
+        h3 Items Sold
+        p= dailySummary.total_sold
+      .stat-card
+        h3 Profit
+        p £#{dailySummary.total_profit.toFixed(2)}
+
+  //- Weekly Summary
+  .summary-container
+    h2 This Week's Summary
+    .summary-stats
+      .stat-card
+        h3 Orders
+        p= weeklySummary.total_orders
+      .stat-card
+        h3 Items Sold
+        p= weeklySummary.total_sold
+      .stat-card
+        h3 Profit
+        p £#{weeklySummary.total_profit.toFixed(2)}
+
+  //- Product Listings
+  if products && products.length > 0
+    h2 My Products
+    table.table
+      thead
+        tr
+          th Product Name
+          th Description
+          th Price
+          th In Stock
+          th Total Orders
+          th Sold
+          th Profit
+          th Actions
+      tbody
+        each product in products
+          tr
+            td= product.name
+            td= product.description || 'No description'
+            td £#{product.price.toFixed(2)}
+            td= product.product_quantity
+            td= product.total_orders
+            td= product.total_sold
+            td £#{product.total_profit.toFixed(2)}
+            td.actions
+              a.delete(href=`/delete_product/${product.product_id}`) Delete
+  else
+    p.no-products No products found. Start by adding your first product.
+
+  a.button(href="/addlisting") Add New Product

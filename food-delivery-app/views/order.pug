@@ -1,0 +1,26 @@
+extends layout
+
+block content
+  .product-detail
+    h1= product.name
+    p
+      span Description:
+      |  #{product.description}
+    p
+      span Price:
+      |  £#{product.total_price}
+    p
+      span Pickup Time:
+      |  #{product.pickupTime}
+    p
+      span Supplier:
+      |  #{product.supplier_username} 
+    a(href="/listings") Back to Listings
+
+    if user && user.account_type === 'customer'
+      form(action="/order/delete_order" method="POST" onsubmit="return confirm('Are you sure you want to delete this order?');")
+        input(type="hidden" name="product_id" value=product.product_id)
+        button(type="submit") Delete Order
+      form(action="/order/show_code" method="POST")
+        input(type="hidden" name="product_id" value=product.product_id)
+        button(type="submit" id = "confirmOrderButton") Pickup Order  
